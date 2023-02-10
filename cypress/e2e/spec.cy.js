@@ -7,7 +7,7 @@ var Comments = 'Hello, how to get to the station?'
 
 
 describe('template spec', () => {
-  it.only('1', () => {
+  it('1', () => {
     cy.visit(baseUrl)
     cy.get('#contact-us').invoke("removeAttr", "target").click()
 
@@ -180,13 +180,13 @@ cy.get('section').find('form').find('input').first().then( input => {
 })
 })
 
-it('10', () => {
+it.only('10', () => {
   Cypress.on('uncaught:exception', (err, runnable) => {
     return false
   }) 
   cy.visit(baseUrl)
-  cy.get('#ajax-loader').invoke("removeAttr", "target").click().wait(1000)
-  cy.get('#button1').click()
+  cy.get('#ajax-loader').invoke("removeAttr", "target").click()//wait(10000)
+  cy.get('#button1', { timeout: 10000 }).should('be.visible').click()
   cy.get('.modal-content').find('.modal-body').should('contain', 'The waiting game can be a tricky one; this exercise will hopefully improve your understandings of the various types of waits.')
 
 })
