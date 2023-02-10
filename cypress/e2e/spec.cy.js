@@ -185,7 +185,7 @@ it.only('10', () => {
     return false
   }) 
   cy.visit(baseUrl)
-  cy.get('#ajax-loader').invoke("removeAttr", "target").click()//wait(10000)
+  cy.get('#ajax-loader').invoke("removeAttr", "target").click()
   cy.get('#button1', { timeout: 10000 }).should('be.visible').click()
   cy.get('.modal-content').find('.modal-body').should('contain', 'The waiting game can be a tricky one; this exercise will hopefully improve your understandings of the various types of waits.')
 
