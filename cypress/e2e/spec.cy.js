@@ -1,18 +1,18 @@
 let baseUrl = ('https://webdriveruniversity.com/')
 
 
-import { checkBoxes, navigateTo } from './pageObjects'
-import { fillForm } from './pageObjects'
-import { Checkboxes } from './pageObjects'
+import { goToPage } from './page-objects.js/NavigationPage'
+import { fillForm } from './page-objects.js/FormFilling.js'
+import { checkBoxes } from './page-objects.js/Checkboxes.js'
 
 describe('template spec', () => {
   beforeEach('open application page', () => {
     cy.visit(baseUrl)
   })
 
-  it('1', () => {
+  it.only('1', () => {
     
-    navigateTo.contactPage()
+    goToPage.contactPage()
     fillForm.fullFormFilling()
     cy.get('input[type="reset"]').click()
     cy.get('input[placeholder], textarea[placeholder="Comments"]').should('have.value', "")
@@ -23,7 +23,7 @@ describe('template spec', () => {
     
   it('2', () => {
     
-    navigateTo.contactPage()
+    goToPage.contactPage()
     fillForm.notFullFormFilling()
     cy.get('input[type="submit"]').click()
     cy.get('body').should('contain', 'Error: all fields are required')
@@ -32,7 +32,7 @@ describe('template spec', () => {
 
   it('3', () => {
     
-    navigateTo.contactPage()
+    goToPage.contactPage()
     fillForm.wrongEmailFormFilling()
     cy.get('input[type="submit"]').click()
     cy.get('body').should('contain', 'Error: Invalid email address')
@@ -41,7 +41,7 @@ describe('template spec', () => {
     })
   it('4', () => {
       
-      navigateTo.contactPage()
+      goToPage.contactPage()
       fillForm.fullFormFilling()
       cy.get('input[type="submit"]').click()
       cy.get('body').should('contain', 'Thank You for your Message!')
@@ -51,7 +51,7 @@ describe('template spec', () => {
 
 it('5', () => {
   
-  navigateTo.dropdownsPage()
+  goToPage.dropdownsPage()
 
   cy.get('.thumbnail').first().should('contain', 'Dropdown Menu(s)').find('.dropdown-menu-lists').first()
   .select('JAVA').should('have.value', 'java')
@@ -73,13 +73,13 @@ it('5', () => {
       
   })
 it.only('6', () => {
-  navigateTo.dropdownsPage()
+  goToPage.dropdownsPage()
   checkBoxes.checkAll()
   checkBoxes.uncheckOneTwo()
 
   })
 it('7', () => {
-  navigateTo.dropdownsPage()
+  goToPage.dropdownsPage()
   cy.get('.thumbnail').eq(2).should('contain', 'Radio Button(s)').find('input','[type="radiobutton"]').then (radiobutton => {
     cy.wrap(radiobutton).each( radiobutton => {
       cy.get(radiobutton).check().should('be.checked')
@@ -88,7 +88,7 @@ it('7', () => {
     
   
 it('8', () => {
-  navigateTo.datepickerPage()
+  goToPage.datepickerPage()
 
   let date = new Date()
   date.setDate(date.getDate() + 2)
@@ -117,7 +117,7 @@ cy.wrap(input).invoke('prop', 'value').should('contain', dateAssert)
 
 
 it('9', () => {
-  navigateTo.autocompletePage()
+  goToPage.autocompletePage()
 
 cy.get('section').find('form').find('div', '.autocomplete').click().type('chi')
 cy.get('#myInputautocomplete-list').find('div').eq(1).click()
@@ -131,7 +131,7 @@ it('10', () => {
   Cypress.on('uncaught:exception', (err, runnable) => {
     return false
   }) 
-  navigateTo.ajaxPage()
+  goToPage.ajaxPage()
   cy.get('#button1', { timeout: 10000 }).should('be.visible').click()
   cy.get('.modal-content').find('.modal-body').should('contain', 'The waiting game can be a tricky one; this exercise will hopefully improve your understandings of the various types of waits.')
 
