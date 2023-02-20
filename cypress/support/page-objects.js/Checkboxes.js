@@ -1,5 +1,6 @@
-export class Checkboxes {
 
+export class Checkboxes {
+    
     checkAll() {
         cy.get('.thumbnail').eq(1).should('contain', 'Checkboxe(s)')
         .find('input','[type="checkbox"]')
@@ -15,5 +16,6 @@ export class Checkboxes {
             .uncheck().should('not.be.checked')
     })
    }
+
 }
 export const checkBoxes = new Checkboxes
